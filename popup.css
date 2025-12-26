@@ -12,4 +12,101 @@ html {
 
 body {
   font-size: 1.6rem; /* 16px */
+  width: 40rem;
+  height: 60rem;
+  overflow: hidden;
+  background: #ffffff;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Header with gradient */
+.header{
+  position: relative;
+  height: 12.8rem;
+  background: linear-gradient(135deg, #3b82f6 0%, #a855f7 50%, #ec4899 100%);
+}
+
+/* Agrega una capa de superposicion oscura sobre el gradiente */
+.header::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+
+/* Title */
+.title-section{
+  padding: 2.4rem;
+}
+
+.title-section h1{
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: .4rem;
+}
+
+.title-section p{
+  font-size: 1.4rem;
+  color: #6b7280;
+}
+
+/* Separator */
+.separator{
+  height: .1rem;
+  background: #e5e7eb;
+  margin: 0 2.4rem;
+}
+
+/* Contenido scrolleable */
+.content{
+  flex: 1;
+  overflow-y: auto;
+  padding: .8rem;
+}
+
+/* Items del historial */
+.history-item{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.6rem;
+  border-radius: .8rem;
+  transition: background-color .2s ease;
+}
+
+.history-item:hover{
+  background-color: #e6e6e6;
+}
+
+.history-item-left{
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.domain-text{
+  font-size: 1.4rem;
+  color: #111827;
+  font-weight: 500;
+}
+
+.history-item-right{
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  color: #6b7280;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+}
+
+.history-item-right i{
+  width: 1.6rem;
+  height: 1.6rem;
 }

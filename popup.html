@@ -4,10 +4,37 @@
   <meta charset="UTF-8">
   <title>Mi Popup</title>
   <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
 </head>
 <body>
-  <h1>¡Hola desde el Popup!</h1>
-  <script src="background.js"></script>
+  <div class="container">
+    <!-- Header with gradient-->
+    <div class="header"></div>
+
+    <!-- Title-->
+    <div class="title-section">
+      <h1>Historial de navegacion</h1>
+      <p>Tiempo en cada sitio web</p>
+
+    <!-- Separator - List with scroll -->
+    <div class="separator"></div>
+
+    <div class="content" id="historyList">
+      <!-- Los items se generaran con JS -->
+       <div class="history-item">
+        <div class="history-item-left">
+          <p class="domain-test">google.com</p>
+        </div>
+        <div class="history-item-right">
+          <i class="fa-regular fa-clock"></i>
+          <span>5h 23m 5s</span>
+        </div>
+       </div>
+    </div>
+
+    </div>
+  </div>
+
   <script src="popup.js"></script>
 </body>
 </html>
