@@ -1,0 +1,15 @@
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Base font-size: 62.5% of 16px = 10px, so 1rem = 10px */
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem; /* 16px */
+}
