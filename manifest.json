@@ -1,5 +1,6 @@
 {
-  "name": "Mi Primera Extensión",
+  "name": "Web Time Tracker",
+  "description": "Automatically track how much time you spend on each website",
   "version": "1.0",
   "manifest_version": 3,
   "action": {
