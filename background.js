@@ -5,25 +5,75 @@ console.log("El cerebro (background.js) ha empezado a funcionar.");
 let counterInterval = null;
 let elapsedTime = 0; 
 let currentDomain = '';
-let historial = [];
+let historyAll = [];
+let historyWeekly = [];
 
 
+// Funcion general para guardar el tiempo de navegacion en los historiales
 function saveToHistory(domain, timeSpent) {
-    // Buscar si ya existe el dominio en el historial
-    const existingEntry = historial.find(entry => entry.web === domain);
+    // Buscar si ya existe el dominio en el historyAll
+    const existingEntry = historyAll.find(
+        entry => entry.web === domain
+    );
 
     if (existingEntry) {
         // Si existe, sumar el tiempo
         existingEntry.time += timeSpent;
     } else {
         // Si no existe, crear nueva entrada
-        historial.push({
+        historyAll.push({
             web: domain,
             time: timeSpent
         });
     }
+
+    // Guardar en historial semanal
+    saveToWeeklyHistory(domain, timeSpent);
+}
+// Funcion para guardar el tiempo de navegacion en el historial semanal (HistoryWeekly)
+// ESTA FUNCION SE USARA COMPLETAMENTE EN EL FUTURO
+// La version a produccion no tendra pestaña de historial semanal, aun asi, se registrara semanalmente en segundo plano
+function saveToWeeklyHistory(domain, timeSpent) {
+    // El dia de hoy
+    const today = new Date().toDateString();
+
+    // Buscar si ya existe una entrada para este dominio y esta fecha
+    const existingEntry = historyWeekly.find(
+        entry => entry.web === domain && entry.date === today
+    );
+
+    if (existingEntry){
+        // Si existe, sumar el tiempo
+        existingEntry.time += timeSpent;
+    } else {
+        historyWeekly.push({
+            web: domain,
+            time: timeSpent,
+            date: today,
+            timestamp: Date.now()
+            // El timestamp es la fecha de hoy en milisegundos. Una vez que se registra el historial de la web, el timestamp siempre va a estar en la misma fecha. Hasta que se elimine el historial (ahi se establece de nuevo)
+        });
+    }
+
+    // Limpiar entradas mayores a 7 dias
+    cleanOldEntries();
+
+    
 }
 
+// Funcion que filtra historial
+function cleanOldEntries() {
+    // Cantidad de milisegundos en 7 dias
+    const sevenDaysAgo = Date.now() - (7 * 24 * 60 * 60 * 1000);
+
+    // Filtra el historial, dejando solo las entradas recientes
+    // Mantiene solo si el timestamp es mayor o igual a hace 7 dias, si no, la borra.
+    historyWeekly = historyWeekly.filter(
+        entry => entry.timestamp >= sevenDaysAgo
+    );
+}
+
+// Funcion: convierte segundos a formato legible (ej: "3h 25m 10s", "45m 30s", "15s")
 function formatTime(totalSeconds) {
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
@@ -43,8 +93,7 @@ function formatTime(totalSeconds) {
     return timeString.trim();
 }
 
-// funcion contador
-// Cambia de pestaña: guarda tiempo anterior e inicia nuevo contador
+// Detiene el contador actual, guarda el tiempo y reinicia uno nuevo
 function switchTab(){
     
     // Si hay contador activo, detener el Interval
@@ -53,7 +102,7 @@ function switchTab(){
         // Guardar el tiempo de la pestaña anterior en el historial
         if (currentDomain && elapsedTime > 0){
             saveToHistory(currentDomain, elapsedTime);
-            console.log("Historial actualizado:", historial);
+            console.log("historyAll actualizado:", historyAll);
         }
         clearInterval(counterInterval);
 
@@ -71,7 +120,7 @@ function switchTab(){
 
 
 
-// Este evento se dispara cada vez que el usuario cambia a una pestaña diferente.
+// Detecta cuando el usuario cambia a una pestaña diferente
 chrome.tabs.onActivated.addListener(activeInfo => {
 
     const tabId = activeInfo.tabId;
@@ -91,7 +140,7 @@ chrome.tabs.onActivated.addListener(activeInfo => {
                 
 
             } catch (error){
-                // Manejamos este error para paginas donde no tienen hostname, como URLs internas del navegador
+                // Maneja URLs internas del navegador (chrome://, edge://, etc.)
                 switchTab();
                 currentDomain = tab.url;
                 console.log("Pestaña cambiada a:", tab.url);
@@ -101,7 +150,7 @@ chrome.tabs.onActivated.addListener(activeInfo => {
     });
 });
 
-// Detecta cuando la URL cambia en la misma pestaña
+// Detecta cuando la URL cambia en la misma pestaña (navegacion interna)
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>{
 
     // Solo actuar cuando la URL ha cambiado completamente
