@@ -30,9 +30,8 @@ function saveToHistory(domain, timeSpent) {
     // Guardar en historial semanal
     saveToWeeklyHistory(domain, timeSpent);
 }
-// Funcion para guardar el tiempo de navegacion en el historial semanal (HistoryWeekly)
-// ESTA FUNCION SE USARA COMPLETAMENTE EN EL FUTURO
-// La version a produccion no tendra pestaña de historial semanal, aun asi, se registrara semanalmente en segundo plano
+// Guardar el tiempo de navegacion en el historial semanal (HistoryWeekly)
+// TODO: En produccion esta funcionalidad estara oculta al usuario pero seguira registrando datos
 function saveToWeeklyHistory(domain, timeSpent) {
     // El dia de hoy
     const today = new Date().toDateString();
