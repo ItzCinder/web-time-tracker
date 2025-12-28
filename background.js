@@ -1,6 +1,6 @@
 // background.js
 
-console.log("El cerebro (background.js) ha empezado a funcionar.");
+// console.log("El cerebro (background.js) ha empezado a funcionar."); // debug
 
 // Al iniciar, cargar datos guardados
 chrome.runtime.onStartup.addListener(async () => {
@@ -28,8 +28,7 @@ async function loadHistoryFromStorage() {
     if (result.historyWeekly){
         historyWeekly = result.historyWeekly;
     }
-
-    console.log("Historial cargado desde storage:", historyAll);
+    // console.log("Historial cargado desde storage:", historyAll); // debug
 }
 
 // Guardar historial en el almacenamiento
@@ -39,7 +38,7 @@ async function saveHistoryToStorage() {
         historyWeekly: historyWeekly
 
     });
-    console.log("Historial guardado en storage");
+    // console.log("Historial guardado en storage"); // debug
 }
 
 
@@ -139,7 +138,7 @@ function switchTab(){
         // Guardar el tiempo de la pestaña anterior en el historial
         if (currentDomain && elapsedTime > 0){
             saveToHistory(currentDomain, elapsedTime);
-            console.log("historyAll actualizado:", historyAll);
+            // console.log("historyAll actualizado:", historyAll); // debug
         }
         clearInterval(counterInterval);
 
@@ -149,7 +148,7 @@ function switchTab(){
 
     counterInterval = setInterval(() =>{
         elapsedTime++;
-        console.log(`Tiempo en esta pestaña:`, formatTime(elapsedTime));
+        // console.log(`Tiempo en esta pestaña:", formatTime(elapsedTime)); // debug
 
     }, 1000); // 1000 ms = 1 segundo
 }
@@ -172,7 +171,7 @@ chrome.tabs.onActivated.addListener(activeInfo => {
                 const domain = hostname.replace('www.', '');
                 
                 switchTab();
-                console.log("Pestaña cambiada a:", domain);
+                // console.log("Pestaña cambiada a:", domain); // debug
                 currentDomain = domain;
                 
 
@@ -180,7 +179,7 @@ chrome.tabs.onActivated.addListener(activeInfo => {
                 // Maneja URLs internas del navegador (chrome://, edge://, etc.)
                 switchTab();
                 currentDomain = tab.url;
-                console.log("Pestaña cambiada a:", tab.url);
+                // console.log("Pestaña cambiada a:", tab.url); // debug
                 
             }
         }
@@ -201,14 +200,14 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) =>{
             if (currentDomain !== domain) {
                 switchTab();
                 currentDomain = domain;
-                console.log("URL cambiada a", domain);
+                // console.log("URL cambiada a", domain); // debug
             }
 
         } catch (error) {
             if (currentDomain !== tab.url) {
                 switchTab();
                 currentDomain = tab.url;
-                console.log("URL cambiada a:", tab.url);
+                // console.log("URL cambiada a:", tab.url); // debug
                 
             }
             
