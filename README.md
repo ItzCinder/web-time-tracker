@@ -9,7 +9,7 @@ A Chromium-based browser extension that automatically tracks how much time you s
 - Clear and simple visualization of history from the extension popup.
 - Local storage of data, without sending information to external servers.
 
-![alt text](image.png)
+![alt text](screenshots/image.png)
 
 ## How to install
 
