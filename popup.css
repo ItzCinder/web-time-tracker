@@ -31,6 +31,20 @@ body {
   height: 12.8rem;
   background: linear-gradient(135deg, #3b82f6 0%, #a855f7 50%, #ec4899 100%);
   flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header h1{
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: .4rem;
+  z-index: 10;
 }
 
 /* Agrega una capa de superposicion oscura sobre el gradiente */
@@ -39,6 +53,7 @@ body {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
 
@@ -48,12 +63,6 @@ body {
   flex-shrink: 0;
 }
 
-.title-section h1{
-  font-size: 2.4rem;
-  font-weight: 600;
-  color: #111827;
-  margin-bottom: .4rem;
-}
 
 .title-section p{
   font-size: 1.4rem;
@@ -102,6 +111,7 @@ body {
   font-size: 1.4rem;
   color: #111827;
   font-weight: 500;
+  font-family: "Inter", sans-serif;
 }
 
 .history-item-right{
@@ -116,6 +126,10 @@ body {
 .history-item-right i{
   width: 1.6rem;
   height: 1.6rem;
+}
+
+.history-item-right span{
+  font-family: "Kanit", sans-serif;
 }
 
 /* scroll style */

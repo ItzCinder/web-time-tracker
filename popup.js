@@ -23,7 +23,7 @@ function createHistoryItem(domain, timeSpent){
     
     item.innerHTML = `
         <div class="history-item-left">
-          <p class="domain-test">${domain}</p>
+          <p class="domain-text">${domain}</p>
         </div>
         <div class="history-item-right">
           <i class="fa-regular fa-clock"></i>
@@ -56,10 +56,10 @@ function formatTime(totalSeconds) {
     let timeString = '';
 
     if (hours > 0){
-        timeString += `${hours}h`;
+        timeString += `${hours}h `;
     }
     if (minutes > 0){
-        timeString += `${minutes}m`;
+        timeString += `${minutes}m `;
     }
 
     timeString += `${seconds}s`;
